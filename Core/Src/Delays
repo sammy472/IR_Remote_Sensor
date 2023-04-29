@@ -1,0 +1,21 @@
+/*Function Definitions And Implementation*/
+void Delay_Microseconds_DWT(uint32_t delay){
+	uint32_t cycles = (HAL_RCC_GetHCLKFreq()/1000000)*delay;
+	uint32_t start = DWT->CYCCNT;
+	while(DWT->CYCCNT - start < cycles);
+}
+void Delay_Milliseconds_DWT(uint32_t delay){
+	uint32_t cycles = (HAL_RCC_GetHCLKFreq()/1000)*delay;
+	uint32_t start = DWT->CYCCNT;
+	while(DWT->CYCCNT - start < cycles);
+}
+void Delay_Seconds_DWT(uint32_t delay){
+	uint32_t cycles = (HAL_RCC_GetHCLKFreq()/1)*delay;
+	uint32_t start = DWT->CYCCNT;
+	while(DWT->CYCCNT - start < cycles);
+}
+
+/*Data Watch Point Enabling Function*/
+void Enable_DWT(void){
+    DWT->CYCCNT |= 1;
+}
